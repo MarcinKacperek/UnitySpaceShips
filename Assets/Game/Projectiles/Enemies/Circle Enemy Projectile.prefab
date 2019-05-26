@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &164581265488652282
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1276431611775296965, guid: c55b54c782fc3334b8c81aad00f2978b,
+        type: 3}
+      propertyPath: m_Name
+      value: Circle Enemy Projectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512831194417241336, guid: c55b54c782fc3334b8c81aad00f2978b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512831194417241336, guid: c55b54c782fc3334b8c81aad00f2978b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512831194417241336, guid: c55b54c782fc3334b8c81aad00f2978b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512831194417241336, guid: c55b54c782fc3334b8c81aad00f2978b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512831194417241336, guid: c55b54c782fc3334b8c81aad00f2978b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512831194417241336, guid: c55b54c782fc3334b8c81aad00f2978b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512831194417241336, guid: c55b54c782fc3334b8c81aad00f2978b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512831194417241336, guid: c55b54c782fc3334b8c81aad00f2978b,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512831194417241336, guid: c55b54c782fc3334b8c81aad00f2978b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512831194417241336, guid: c55b54c782fc3334b8c81aad00f2978b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512831194417241336, guid: c55b54c782fc3334b8c81aad00f2978b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2645724076700232940, guid: c55b54c782fc3334b8c81aad00f2978b,
+        type: 3}
+      propertyPath: movementSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5406990480597560583, guid: c55b54c782fc3334b8c81aad00f2978b,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5406990480597560583, guid: c55b54c782fc3334b8c81aad00f2978b,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6075807225775757231, guid: c55b54c782fc3334b8c81aad00f2978b,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -3377326118425499403, guid: d021154535c48c844af15156820e4efe,
+        type: 3}
+    - target: {fileID: 6075807225775757231, guid: c55b54c782fc3334b8c81aad00f2978b,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.1875
+      objectReference: {fileID: 0}
+    - target: {fileID: 6075807225775757231, guid: c55b54c782fc3334b8c81aad00f2978b,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.1875
+      objectReference: {fileID: 0}
+    - target: {fileID: 6075807225775757231, guid: c55b54c782fc3334b8c81aad00f2978b,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2789560849081628692, guid: c55b54c782fc3334b8c81aad00f2978b,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c55b54c782fc3334b8c81aad00f2978b, type: 3}
