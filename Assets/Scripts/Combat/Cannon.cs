@@ -16,9 +16,10 @@ namespace SimpleSpaceShooter.Combat {
             if (IsPlayer()) {
                 // Player has delay on start
                 nextAttackTime = Time.time + Constants.INITIAL_GAME_DELAY;
-            } else {
-                // All enemy cannons have random delay at start
-                nextAttackTime += Time.time + Random.Range(0.0f, attackCooldown);
+                // Enemy initial attack cooldown is set in SetAttackSpeed method (called by LevelManager)
+            // } else {
+            //     // All enemy cannons have random delay at start
+            //     nextAttackTime += Time.time + Random.Range(0.0f, attackCooldown);
             }
         }
 
@@ -26,16 +27,16 @@ namespace SimpleSpaceShooter.Combat {
             HandleShooting();        
         }
 
-        void HandleShooting() {
+        private void HandleShooting() {
             if (nextAttackTime <= Time.time) {
                 Projectile projectile = GameObject.Instantiate(projectilePrefab, transform.position, transform.rotation);
-                projectile.SetDamage(damage);
+                projectile.Damage = damage;
 
                 nextAttackTime = Time.time + attackCooldown;
             }
         }
 
-        bool IsPlayer() {
+        private bool IsPlayer() {
             Transform parentTransform = transform;
             while ((parentTransform = parentTransform.parent) != null) {
                 if (parentTransform.tag == "Player") {
@@ -44,6 +45,12 @@ namespace SimpleSpaceShooter.Combat {
             }
 
             return false;
+        }
+
+        public void SetAttackSpeed(float divider) {
+            attackCooldown /= divider;
+            // Set initial random delay
+            nextAttackTime += Time.time + Random.Range(0.0f, attackCooldown);
         }
 
     }

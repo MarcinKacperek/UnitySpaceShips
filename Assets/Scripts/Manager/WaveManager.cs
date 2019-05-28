@@ -15,6 +15,7 @@ namespace SimpleSpaceShooter.Manager {
         [SerializeField] private Wave[] wavePrefabs = null;
         private Wave currentWave = null;
 
+        private GameManager gameManager;
         private LevelManager levelManager;
 
         public System.Action<Health> OnEnemySpawn {
@@ -25,6 +26,7 @@ namespace SimpleSpaceShooter.Manager {
         }
 
         void Awake() {
+            gameManager = GetComponent<GameManager>();
             levelManager = GetComponent<LevelManager>();
         }
 
@@ -33,7 +35,7 @@ namespace SimpleSpaceShooter.Manager {
         }
 
         void Update() {
-            if (levelManager.Finished) return;
+            if (gameManager.Finished) return;
 
             SpawnWave();
         }
@@ -41,7 +43,7 @@ namespace SimpleSpaceShooter.Manager {
         void SpawnWave() {
             if (currentWave != null) {
                 if (currentWave.FinishedSpawning) {
-                    nextWaveTime = Time.time + Random.Range(minWaveInterval, maxWaveInterval);
+                    nextWaveTime = Time.time + Random.Range(minWaveInterval / levelManager.LevelDifficultyFactor, maxWaveInterval / levelManager.LevelDifficultyFactor);
                     currentWave = null;
                 }
 

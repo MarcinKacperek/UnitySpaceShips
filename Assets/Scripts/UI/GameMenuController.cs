@@ -14,6 +14,7 @@ namespace SimpleSpaceShooter.UI {
 
         private GameObject pauseScreen;
         private GameObject resultScreen;
+        private TextMeshProUGUI levelText;
         private TextMeshProUGUI scoreText;
         private Image scoreFillBar;
         private Image healthFillBar;
@@ -28,6 +29,7 @@ namespace SimpleSpaceShooter.UI {
             Canvas canvas = FindObjectOfType<Canvas>();
             pauseScreen = canvas.transform.Find("PauseScreen").gameObject;
             resultScreen = canvas.transform.Find("ResultScreen").gameObject;
+            levelText = canvas.transform.Find("LevelText").GetComponent<TextMeshProUGUI>();
             scoreText = canvas.transform.Find("ScoreText").GetComponent<TextMeshProUGUI>();
             scoreFillBar = canvas.transform.Find("ScoreBar").Find("FillBar").GetComponent<Image>();
             healthFillBar = canvas.transform.Find("HealthBar").Find("FillBar").GetComponent<Image>();
@@ -43,9 +45,11 @@ namespace SimpleSpaceShooter.UI {
             playerHealth.OnChangeHealth += UpdatePlayerHealth;
             gameManager.OnGameLostAction += ShowResultScreen;
             levelManager.OnScoreChange += UpdateScore;
+            levelManager.OnLevelChange += UpdateLevel;
             
             UpdatePlayerHealth(playerHealth);
-            UpdateScore(levelManager.CurrentPoints);
+            UpdateScore();
+            UpdateLevel();
         }
 
         void Update() {
@@ -58,9 +62,17 @@ namespace SimpleSpaceShooter.UI {
             }
         }
 
-        private void UpdateScore(int newScore) {
-            scoreText.text = newScore.ToString().PadLeft(5, '0');
-            scoreFillBar.fillAmount = (float) newScore / levelManager.PointsToFinish;
+        private void UpdateScore() {
+            if (gameManager.Finished) return;
+            
+            scoreText.text = levelManager.TotalPoints.ToString().PadLeft(5, '0');
+            scoreFillBar.fillAmount = (float) levelManager.CurrentLevelPoints / levelManager.NextLevelPoints;
+        }
+
+        private void UpdateLevel() {
+            if (gameManager.Finished) return;
+
+            levelText.text = levelManager.CurrentLevel.ToString().PadLeft(2, '0');
         }
 
         private void UpdatePlayerHealth(Health playerHealth) {
@@ -78,6 +90,9 @@ namespace SimpleSpaceShooter.UI {
         }
 
         public void ShowResultScreen() {
+            TextMeshProUGUI resultScoreText = resultScreen.transform.Find("ScoreText").GetComponent<TextMeshProUGUI>();
+            resultScoreText.text = levelManager.TotalPoints.ToString();
+
             pauseScreen.SetActive(false);
             resultScreen.SetActive(true);
         }

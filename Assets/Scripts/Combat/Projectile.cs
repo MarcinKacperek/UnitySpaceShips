@@ -11,7 +11,13 @@ namespace SimpleSpaceShooter.Combat {
         [SerializeField] private ParticleSystem onHitEffect = null;
 
         private float damage;
+        public float Damage {
+            set { damage = value; }
+        }
         private Transform target;
+        public Transform Target {
+            set { target = value; }
+        }
 
         private Arena arena;
 
@@ -22,26 +28,9 @@ namespace SimpleSpaceShooter.Combat {
         void Update() {
             HandleMovement();
 
-            // Check if missile is too far from arena
-            float y = transform.position.y;
-            if (y > arena.ArenaHeight || y < -arena.ArenaHeight) {
+            if (IsTooFarFromArena()) {
                 Destroy(gameObject);
             }
-        }
-
-        public void SetDamage(float damage) {
-            this.damage = damage;
-        }
-
-        public void SetTarget(Transform target) {
-            this.target = target;
-        }
-
-        void HandleMovement() {
-            if (target != null) {
-                transform.up = target.position - transform.position;
-            }
-            transform.position += transform.up.normalized * movementSpeed * Time.deltaTime;
         }
 
         void OnTriggerEnter2D(Collider2D other) {
@@ -54,6 +43,19 @@ namespace SimpleSpaceShooter.Combat {
 
             health.TakeDamage(damage);
             Destroy(gameObject);
+        }
+
+        private void HandleMovement() {
+            if (target != null) {
+                transform.up = target.position - transform.position;
+            }
+            transform.position += transform.up.normalized * movementSpeed * Time.deltaTime;
+        }
+
+        private bool IsTooFarFromArena() {
+            float x = transform.position.x;
+            float y = transform.position.y;
+            return x > arena.ArenaWidth || x < -arena.ArenaWidth || y > arena.ArenaHeight || y < -arena.ArenaHeight; 
         }
 
     }

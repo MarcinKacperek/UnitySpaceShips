@@ -1,30 +1,44 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using SimpleSpaceShooter.Combat;
 using SimpleSpaceShooter.Core;
 using UnityEngine;
 
 namespace SimpleSpaceShooter.Manager {
     
     public class LevelManager : MonoBehaviour {
-    
-        [SerializeField] private int pointsToFinish = 0;
-        public int PointsToFinish {
-            get { return pointsToFinish; }
-        }
-        private int currentPoints = 0;
-        public int CurrentPoints {
-            get { return currentPoints; }
-        }
 
+        private const float LEVEL_MULTIPLIER = 1.5f;
+
+        private float levelDifficultyFactor = 1.0f;
+        public float LevelDifficultyFactor {
+            get { return levelDifficultyFactor; }
+        }
+        private int currentLevel = 1;
+        public int CurrentLevel {
+            get { return currentLevel; }
+        }
+        private int nextLevelPoints = 100;
+        public int NextLevelPoints { 
+            get { return nextLevelPoints; }
+        }
+        private int currentLevelPoints = 0;
+        public int CurrentLevelPoints {
+            get { return currentLevelPoints; }
+        }
+        private int totalPoints = 0;
+        public int TotalPoints {
+            get { return totalPoints; }
+        }
+    
         private WaveManager waveManager;
 
-        private bool finished = false;
-        public bool Finished {
-            get { return finished; }
+        public Action OnScoreChange {
+            get; set;
         }
-    
-        public Action<int> OnScoreChange {
+
+        public Action OnLevelChange {
             get; set;
         }
 
@@ -33,13 +47,39 @@ namespace SimpleSpaceShooter.Manager {
         }
 
         void Start() {
+            waveManager.OnEnemySpawn += ApplyDifficultyFactor;
             waveManager.OnEnemyDeath += UpdateScore;
         }
 
-        void UpdateScore(Health destroyedEnemy) {
+        private void ApplyDifficultyFactor(Health enemyHealth) {
+            Cannon[] cannons = enemyHealth.GetComponentsInChildren<Cannon>();
+            foreach (Cannon cannon in cannons) {
+                cannon.SetAttackSpeed(levelDifficultyFactor);
+            }
+        }
+        
+        private void UpdateScore(Health destroyedEnemy) {
             Enemy enemy = destroyedEnemy.GetComponent<Enemy>();
-            currentPoints += enemy.Points;
-            OnScoreChange(currentPoints);
+
+            totalPoints += (int) (enemy.Points * levelDifficultyFactor);
+            currentLevelPoints += enemy.Points;
+
+            UpdateLevel();
+            OnScoreChange();
+        }
+
+        private void UpdateLevel() {
+            if (currentLevelPoints >= nextLevelPoints) {
+                // Increase level
+                currentLevel++;
+                levelDifficultyFactor *= LEVEL_MULTIPLIER;
+                currentLevelPoints -= nextLevelPoints;
+                nextLevelPoints = (int) (nextLevelPoints * LEVEL_MULTIPLIER);
+
+                if (OnLevelChange != null) {
+                    OnLevelChange();
+                }
+            }
         }
 
     }
